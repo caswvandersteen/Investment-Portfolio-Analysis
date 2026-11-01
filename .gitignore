@@ -221,3 +221,4 @@ data/raw/
 *.xlsx
 *.xls
 output/
+data/processed/
