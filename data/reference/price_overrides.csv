@@ -1,0 +1,5 @@
+yahoo_symbol,start_date,end_date,action,reason
+WNRG.L,2020-03-17,2020-03-17,drop,"Single-day spike of +45% reversed the next day (-40%); bad print. Affects benchmark WNRG and the WENS proxy."
+WREE.L,2024-04-22,2024-04-24,drop,"First days quoted in GBP, later in pence (GBp); jump of +7947% on 2024-04-25 is a unit switch."
+WNRG.L,2020-03-12,2020-03-12,drop,"+19% on the worst crash day, reversed next day; not in second source (Trading212). Bad print."
+WREE.L,2025-10-24,2025-10-24,drop,"+33% reversed next day (-26%); not in second source (Trading212). Bad print."
