@@ -222,3 +222,4 @@ data/raw/
 *.xls
 output/
 data/processed/
+scratch/
