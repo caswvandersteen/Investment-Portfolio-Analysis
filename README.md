@@ -28,7 +28,7 @@ is a backtest of today's selection and contains hindsight.
       workbook's return archive
 - [x] Risk: correlation between blocks, real-rate sensitivity, VaR/ES with a
       VaR backtest, risk contribution, historical stress tests, currency risk
-- [ ] Scenario analysis per macro regime, including a Taiwan shock
+- [x] Scenario analysis per macro regime (factor model), Taiwan shock in two variants, real returns
 - [ ] Power BI dashboard
 
 ## Key findings (backtest 2019-2026)
@@ -45,9 +45,10 @@ evidence of skill.
   for the equity market; mining and quality pies are the most sensitive.
 - **Risk is split 50/50 between the blocks**, matching the capital split;
   mining carries the largest risk share relative to its capital weight.
-- **Normal VaR understates tail risk.** 99% one-day ES is about 40% higher
-  historically than under a normal distribution; both a historical and a
-  normal rolling VaR fail the Kupiec backtest.
+- **Only filtered historical simulation passes the VaR backtest.** Fixed-window
+  and EWMA-normal models fail the Kupiec test (too slow, or tails too thin);
+  99% one-day ES is about 40% higher historically than under a normal
+  distribution.
 - **Effective USD exposure is about two thirds**, well above the 44% listing
   and 49% economic USD share, because several other currencies move with the
   dollar.
