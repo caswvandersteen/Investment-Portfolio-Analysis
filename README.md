@@ -76,14 +76,14 @@ the manually maintained workbook is used as an independent check.
 Exchange rates and €STR come from the ECB, the US real yield from FRED.
 
 ## Setup (Windows)
-
 ```
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
-```
+python -m pip install -e .
+python -m pytest
 
-Run the notebooks in order: `01` to `05`.
+```
 
 ## Structure
 
@@ -92,5 +92,6 @@ Run the notebooks in order: `01` to `05`.
 - `data/processed/` – derived data and SQLite database (not tracked, rebuilt by the notebooks)
 - `notebooks/` – `01` holdings, validation and exposure; `02` market data;
   `03` SQL; `04` backtest and performance; `05` risk
-- `src/` – reusable functions (in progress)
+- `src/portfolio_analysis/` – reusable functions (workbook, market data, backtest, performance, risk)
+- `tests/` – unit tests of the methodology (no look-ahead, within-pie redistribution, proxy splicing, VaR)
 - `output/` – generated tables and figures (not tracked)
