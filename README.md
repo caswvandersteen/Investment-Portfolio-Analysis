@@ -29,8 +29,32 @@ is a backtest of today's selection and contains hindsight.
 - [x] Risk: correlation between blocks, real-rate sensitivity, VaR/ES with a
       VaR backtest, risk contribution, historical stress tests, currency risk
 - [x] Scenario analysis per macro regime (factor model), Taiwan shock in two variants, real returns
-- [ ] Power BI dashboard
+- [x] Power BI data model (star schema) with measures reconciled against Python
+- [x] Dashboard page 1: composition and exposure
+- [ ] Dashboard page 2: performance versus benchmark
+- [ ] Dashboard page 3: risk and scenarios
 
+## Power BI dashboard
+
+Notebook `06` exports the results as a star schema (Parquet, which keeps data
+types and avoids decimal-comma issues in a Dutch Power BI installation).
+
+- **Single source of truth.** Risk-adjusted metrics (Sharpe, Sortino, drawdown,
+  tracking error) are calculated once in Python and shown as-is. DAX is used for
+  measures that must respond to date filters, such as the period return
+  (geometric linking of daily returns).
+- **Reconciliation.** Annualised return and volatility are independently
+  recalculated in DAX and match the Python results for 2019–now and for 2022.
+  A hidden `Checks` page in the report holds this reconciliation.
+- **Integrity checks.** Notebook `06` asserts that every series in the
+  performance table exists in the series dimension, and that every country has
+  an English label. The first check was added after finding two unmatched
+  series keys.
+- **Reading notes.** The country chart shows country of domicile or listing;
+  most UCITS ETFs are domiciled in Ireland, so the economic currency exposure
+  is the better view of economic risk. The top-10 table shows 11 rows because
+  three positions share the same weight at rank 9.
+  
 ## Key findings (backtest 2019-2026)
 
 These describe how the current selection *would have behaved*; they are not
