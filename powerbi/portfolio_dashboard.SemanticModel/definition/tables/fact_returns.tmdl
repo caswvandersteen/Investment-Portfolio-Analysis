@@ -1,0 +1,67 @@
+table fact_returns
+	lineageTag: 91392e0f-1138-4107-9885-19925cff858c
+
+	column date
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 13f33adc-ffee-484c-ab40-6969c7ca451f
+		summarizeBy: none
+		sourceColumn: date
+
+		changedProperty = DataType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column series
+		dataType: string
+		isHidden
+		lineageTag: 291725c8-02c9-4079-9781-0adf97500065
+		summarizeBy: none
+		sourceColumn: series
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column return
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 38354d5a-01db-4a67-948c-3c52fbee091c
+		summarizeBy: none
+		sourceColumn: return
+
+		annotation SummarizationSetBy = User
+
+	column growth
+		dataType: double
+		formatString: 0.00
+		lineageTag: c596fc98-3055-4cde-832b-46731d5f9175
+		summarizeBy: none
+		sourceColumn: growth
+
+		annotation SummarizationSetBy = User
+
+	column drawdown
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 9cf05659-8429-4a87-85aa-2a13411c4894
+		summarizeBy: none
+		sourceColumn: drawdown
+
+		annotation SummarizationSetBy = User
+
+	partition fact_returns = m
+		mode: import
+		source =
+				let
+				  Bron = Parquet.Document(File.Contents(ExportFolder & "fact_returns.parquet"))
+				in
+				  Bron
+
+	annotation PBI_ResultType = Table
+

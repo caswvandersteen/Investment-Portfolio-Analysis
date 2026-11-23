@@ -1,0 +1,29 @@
+table dim_series
+	lineageTag: 3cf4772d-8ea2-4a3f-814b-2e32011b7ff7
+
+	column series
+		dataType: string
+		lineageTag: 60032575-3c1f-466a-930b-68c5154a9a26
+		summarizeBy: none
+		sourceColumn: series
+
+		annotation SummarizationSetBy = Automatic
+
+	column group
+		dataType: string
+		lineageTag: d55a226a-161b-43fa-b40b-2dc6a37417b1
+		summarizeBy: none
+		sourceColumn: group
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_series = m
+		mode: import
+		source =
+				let
+				  Bron = Parquet.Document(File.Contents(ExportFolder & "dim_series.parquet"))
+				in
+				  Bron
+
+	annotation PBI_ResultType = Table
+

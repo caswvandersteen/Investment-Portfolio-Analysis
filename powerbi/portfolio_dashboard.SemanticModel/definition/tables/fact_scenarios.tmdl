@@ -1,0 +1,39 @@
+table fact_scenarios
+	lineageTag: 70f0ccd8-b66e-449a-8c04-a066b1c2a4a0
+
+	column series
+		dataType: string
+		lineageTag: 9df68348-4542-4f9c-a1a8-ddf55d07a3ad
+		summarizeBy: none
+		sourceColumn: series
+
+		annotation SummarizationSetBy = Automatic
+
+	column scenario
+		dataType: string
+		lineageTag: c96154e1-7987-4f21-819f-1090ad5efa06
+		summarizeBy: none
+		sourceColumn: scenario
+
+		annotation SummarizationSetBy = Automatic
+
+	column value
+		dataType: double
+		lineageTag: 31e6339e-bb8e-4464-bd8f-687a955babd6
+		summarizeBy: sum
+		sourceColumn: value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_scenarios = m
+		mode: import
+		source =
+				let
+				  Bron = Parquet.Document(File.Contents(ExportFolder & "fact_scenarios.parquet"))
+				in
+				  Bron
+
+	annotation PBI_ResultType = Table
+

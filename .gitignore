@@ -223,3 +223,7 @@ data/raw/
 output/
 data/processed/
 scratch/
+# Power BI: report and model as text; data cache and local settings stay local
+powerbi/*.pbix
+**/.pbi/cache.abf
+**/.pbi/localSettings.json

@@ -1,0 +1,50 @@
+table fact_performance
+	lineageTag: 3749ef43-775f-4d53-851d-8ebcd1993cc4
+
+	column series
+		dataType: string
+		isHidden
+		lineageTag: d41a3365-e8d6-40dc-848a-aabb03affec5
+		summarizeBy: none
+		sourceColumn: series
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column metric
+		dataType: string
+		lineageTag: 518285b4-3424-451c-a861-070aa4851f10
+		summarizeBy: none
+		sourceColumn: metric
+
+		annotation SummarizationSetBy = Automatic
+
+	column value
+		dataType: double
+		lineageTag: 20443266-5877-4a6d-b90a-3d1401858a3d
+		summarizeBy: none
+		sourceColumn: value
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column period
+		dataType: string
+		lineageTag: 224109de-1314-4966-b2f4-afd8d1760180
+		summarizeBy: none
+		sourceColumn: period
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_performance = m
+		mode: import
+		source =
+				let
+				  Bron = Parquet.Document(File.Contents(ExportFolder & "fact_performance.parquet"))
+				in
+				  Bron
+
+	annotation PBI_ResultType = Table
+

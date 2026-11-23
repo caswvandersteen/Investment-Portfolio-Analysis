@@ -1,0 +1,173 @@
+table dim_holding
+	lineageTag: d80af849-d745-471e-a59f-a5ba32fefd90
+
+	column ticker
+		dataType: string
+		lineageTag: 0e64448c-d33a-460a-98c2-7bdce159dd08
+		summarizeBy: none
+		sourceColumn: ticker
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: 11b2e7fb-d0c1-4fbc-a952-fad90596e0d8
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column isin
+		dataType: string
+		lineageTag: d9481033-ed2e-44a5-98a9-6d49f17eed70
+		summarizeBy: none
+		sourceColumn: isin
+
+		annotation SummarizationSetBy = Automatic
+
+	column pie
+		dataType: string
+		isHidden
+		lineageTag: e7fd58e5-defb-409c-becd-8558d9272f8f
+		summarizeBy: none
+		sourceColumn: pie
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column asset_type
+		dataType: string
+		lineageTag: b8cfcfaf-0e8d-4966-b434-8f170c0674dd
+		summarizeBy: none
+		sourceColumn: asset_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column category
+		dataType: string
+		lineageTag: fe7482cc-346d-4268-8c6f-82753ba945e2
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: 42403c6f-e544-4ec1-9c8a-c7d082515bf3
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column exchange
+		dataType: string
+		lineageTag: 66677000-d93c-4788-802a-666ef4d06357
+		summarizeBy: none
+		sourceColumn: exchange
+
+		annotation SummarizationSetBy = Automatic
+
+	column listing_currency
+		dataType: string
+		lineageTag: 292752db-ee6d-4dd2-a930-7c4a7b73474a
+		summarizeBy: none
+		sourceColumn: listing_currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column main_currency
+		dataType: string
+		lineageTag: 1310a632-7d09-41b3-9568-2cd291c5e46a
+		summarizeBy: none
+		sourceColumn: main_currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column weight_in_portfolio
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 5f08444a-95fd-4ab3-bbef-664da9a6d7bb
+		summarizeBy: sum
+		sourceColumn: weight_in_portfolio
+
+		annotation SummarizationSetBy = Automatic
+
+	column weight_in_pie
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 04768c0e-fe70-4eb4-9d9e-60e0444e4895
+		summarizeBy: sum
+		sourceColumn: weight_in_pie
+
+		annotation SummarizationSetBy = Automatic
+
+	column dividend_yield
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: d481757a-3f0f-428d-9854-0f9c025d4c69
+		summarizeBy: sum
+		sourceColumn: dividend_yield
+
+		annotation SummarizationSetBy = Automatic
+
+	column ter
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 429d22ed-f35d-4729-b099-5ac7cd633a86
+		summarizeBy: sum
+		sourceColumn: ter
+
+		annotation SummarizationSetBy = Automatic
+
+	column yahoo_symbol
+		dataType: string
+		lineageTag: 7141d513-3126-424e-8ffd-a5eba5cea400
+		summarizeBy: none
+		sourceColumn: yahoo_symbol
+
+		annotation SummarizationSetBy = Automatic
+
+	column series_type
+		dataType: string
+		lineageTag: d7fe2dcb-ac12-40d4-a1a4-1b38136ab4c5
+		summarizeBy: none
+		sourceColumn: series_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column proxy_symbol
+		dataType: string
+		lineageTag: 2d782e90-10b8-4c3d-ad8d-ca6763f51729
+		summarizeBy: none
+		sourceColumn: proxy_symbol
+
+		annotation SummarizationSetBy = Automatic
+
+	column block
+		dataType: string
+		lineageTag: ff8b2706-f7e4-40ca-92cc-2bfa526503d9
+		summarizeBy: none
+		sourceColumn: block
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_proxy
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 5dec57cb-e900-48e2-8d25-9daa705118d1
+		summarizeBy: none
+		sourceColumn: has_proxy
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_holding = m
+		mode: import
+		source =
+				let
+				  Bron = Parquet.Document(File.Contents(ExportFolder & "dim_holding.parquet"))
+				in
+				  Bron
+
+	annotation PBI_ResultType = Table
+

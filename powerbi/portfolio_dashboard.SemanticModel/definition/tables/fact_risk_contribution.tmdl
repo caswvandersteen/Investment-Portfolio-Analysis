@@ -1,0 +1,42 @@
+table fact_risk_contribution
+	lineageTag: feede4d7-824f-40ff-8074-a229feb9bf7c
+
+	column pie
+		dataType: string
+		isHidden
+		lineageTag: 93a73b59-e275-47ee-aecd-73d403364343
+		summarizeBy: none
+		sourceColumn: pie
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column period
+		dataType: string
+		lineageTag: 69473249-cb73-48e6-91d0-01e654b237f3
+		summarizeBy: none
+		sourceColumn: period
+
+		annotation SummarizationSetBy = Automatic
+
+	column value
+		dataType: double
+		lineageTag: 411ab6a4-22c1-4083-bc0e-df0fd32f3a94
+		summarizeBy: sum
+		sourceColumn: value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_risk_contribution = m
+		mode: import
+		source =
+				let
+				  Bron = Parquet.Document(File.Contents(ExportFolder & "fact_risk_contribution.parquet"))
+				in
+				  Bron
+
+	annotation PBI_ResultType = Table
+

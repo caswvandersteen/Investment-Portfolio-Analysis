@@ -1,0 +1,33 @@
+model Model
+	culture: nl-NL
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: nl-NL
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["ExportFolder","dim_pie","dim_holding","dim_series","dim_date","holding_currency","fact_returns","fact_performance","_Measures","fact_risk_contribution","fact_scenarios","fact_taiwan","fact_stress","fact_var","fact_rolling","fact_var_backtest"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table dim_pie
+ref table dim_holding
+ref table dim_series
+ref table dim_date
+ref table holding_currency
+ref table fact_returns
+ref table fact_performance
+ref table _Measures
+ref table fact_risk_contribution
+ref table fact_scenarios
+ref table fact_taiwan
+ref table fact_stress
+ref table fact_var
+ref table fact_rolling
+ref table fact_var_backtest
+
+ref cultureInfo nl-NL
+

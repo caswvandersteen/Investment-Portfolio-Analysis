@@ -1,0 +1,40 @@
+table fact_rolling
+	lineageTag: 6c30f373-4426-44da-a620-e191827aba54
+
+	column date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 2b378063-6f13-48da-8ec1-6ebe1f3665d4
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+	column series
+		dataType: string
+		lineageTag: 7cbad528-fd9f-45bf-b68e-43a47aff5cae
+		summarizeBy: none
+		sourceColumn: series
+
+		annotation SummarizationSetBy = Automatic
+
+	column value
+		dataType: double
+		lineageTag: e90f17fc-e971-4313-ab88-712f25a4b9c8
+		summarizeBy: sum
+		sourceColumn: value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_rolling = m
+		mode: import
+		source =
+				let
+				  Bron = Parquet.Document(File.Contents(ExportFolder & "fact_rolling.parquet"))
+				in
+				  Bron
+
+	annotation PBI_ResultType = Table
+

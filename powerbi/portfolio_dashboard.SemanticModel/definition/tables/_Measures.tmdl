@@ -1,0 +1,199 @@
+table _Measures
+	lineageTag: 8682c882-fce7-41ac-b6fd-fdc00550c24e
+
+	measure 'Period Return' =
+			
+			IF (
+			    HASONEVALUE ( dim_series[series] ),
+			    PRODUCTX ( fact_returns, 1 + fact_returns[return] ) - 1
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: f82f68bd-b922-4165-8983-c4bc58bd4d2d
+
+		changedProperty = IsHidden
+
+	measure 'Ann Return' =
+			
+			VAR SelectedPeriod = CALCULATE ( SELECTEDVALUE ( fact_performance[period], "2019-now" ), REMOVEFILTERS ( dim_series ) )
+			RETURN
+			    CALCULATE (
+			        SELECTEDVALUE ( fact_performance[value] ),
+			        fact_performance[metric] = "ann_return",
+			        fact_performance[period] = SelectedPeriod
+			    )
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 2e34b21f-bf6e-469b-a58b-164b08cd4612
+
+		changedProperty = IsHidden
+
+	measure 'Ann Volatility' =
+			
+			VAR SelectedPeriod = CALCULATE ( SELECTEDVALUE ( fact_performance[period], "2019-now" ), REMOVEFILTERS ( dim_series ) )
+			RETURN
+			    CALCULATE (
+			        SELECTEDVALUE ( fact_performance[value] ),
+			        fact_performance[metric] = "ann_vol",
+			        fact_performance[period] = SelectedPeriod
+			    )
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: ef35d1c9-19c5-421c-af4c-0152643b2a64
+
+		changedProperty = IsHidden
+
+	measure 'Sharpe Ratio' =
+			
+			VAR SelectedPeriod = CALCULATE ( SELECTEDVALUE ( fact_performance[period], "2019-now" ), REMOVEFILTERS ( dim_series ) )
+			RETURN
+			    CALCULATE (
+			        SELECTEDVALUE ( fact_performance[value] ),
+			        fact_performance[metric] = "sharpe",
+			        fact_performance[period] = SelectedPeriod
+			    )
+		formatString: 0.00
+		lineageTag: c36f9e52-3bd9-4a9f-a98f-915ebdff3a01
+
+		changedProperty = IsHidden
+
+	measure 'Max Drawdown' =
+			
+			VAR SelectedPeriod = CALCULATE ( SELECTEDVALUE ( fact_performance[period], "2019-now" ), REMOVEFILTERS ( dim_series ) )
+			RETURN
+			    CALCULATE (
+			        SELECTEDVALUE ( fact_performance[value] ),
+			        fact_performance[metric] = "max_drawdown",
+			        fact_performance[period] = SelectedPeriod
+			    )
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: c70ee002-e66d-4d30-9c00-a58151d6498f
+
+	measure 'Ann Return (DAX)' =
+			
+			IF (
+			    HASONEVALUE ( dim_series[series] ),
+			    ( 1 + [Period Return] ) ^ ( 252 / COUNTROWS ( fact_returns ) ) - 1
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: eed4bb8a-a673-4273-88dd-7e0649c2a5fe
+
+	measure 'Ann Volatility (DAX)' =
+			
+			IF (
+			    HASONEVALUE ( dim_series[series] ),
+			    STDEV.S ( fact_returns[return] ) * SQRT ( 252 )
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: dbc20304-98f0-422a-8654-01b91bfca623
+
+	measure Positions = COUNTROWS ( dim_holding )
+		formatString: 0
+		lineageTag: e8498f8d-8c90-4461-8ec4-f492fdfb02aa
+
+	measure 'Portfolio Weight' = SUM ( dim_holding[weight_in_portfolio] )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 44f2cb02-d534-4f39-a33c-4ab2b281b8f5
+
+	measure 'Currency Exposure' =
+			
+			SUMX (
+			    holding_currency,
+			    holding_currency[share] * RELATED ( dim_holding[weight_in_portfolio] )
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: e0f5e545-4a60-4789-b050-4939a5c050b0
+
+	measure 'Growth (Rebased)' =
+			
+			VAR CurrentDate = MAX ( dim_date[date] )
+			VAR StartDate = CALCULATE ( MIN ( fact_returns[date] ), ALLSELECTED ( dim_date ) )
+			RETURN
+			    IF (
+			        HASONEVALUE ( dim_series[series] ) && NOT ISEMPTY ( fact_returns ),
+			        CALCULATE (
+			            PRODUCTX ( fact_returns, 1 + fact_returns[return] ),
+			            DATESBETWEEN ( dim_date[date], StartDate, CurrentDate )
+			        )
+			    )
+		formatString: 0.00
+		lineageTag: 90f235bd-d358-47ce-b454-e479898e5111
+
+	measure 'Drawdown (Selection)' =
+			
+			VAR CurrentDate = MAX ( dim_date[date] )
+			VAR StartDate = CALCULATE ( MIN ( fact_returns[date] ), ALLSELECTED ( dim_date ) )
+			VAR Peak =
+			    CALCULATE (
+			        MAX ( fact_returns[growth] ),
+			        DATESBETWEEN ( dim_date[date], StartDate, CurrentDate )
+			    )
+			RETURN
+			    IF (
+			        HASONEVALUE ( dim_series[series] ) && NOT ISEMPTY ( fact_returns ),
+			        MAX ( fact_returns[growth] ) / Peak - 1
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: d017522d-05a8-4e2f-96fc-d2e55513c9d4
+
+	measure 'Max Drawdown (Selection)' =
+			
+			IF (
+			    HASONEVALUE ( dim_series[series] ),
+			    MINX ( VALUES ( dim_date[date] ), [Drawdown (Selection)] )
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 06671211-d213-41d8-a8ba-de42bf85b8a5
+
+	measure 'Risk Share' = SUM ( fact_risk_contribution[value] )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 61de5ed3-829f-4292-a482-d212bd4b45d8
+
+	measure 'Scenario Return' = SUM ( fact_scenarios[value] )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: b90313de-4f9e-40b7-8e52-c483ee3b70fc
+
+	measure 'Taiwan Impact' = SUM ( fact_taiwan[contribution] )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: fa09439a-ce2b-432a-91cf-2b6cdb79c0cb
+
+	measure 'Stress Return' = SUM ( fact_stress[value] )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 3db8b466-df16-44b1-b9e5-443fb6de14da
+
+	measure 'VaR Value' = SUM ( fact_var[value] )
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: c6456d13-22ea-4dc6-9388-911e5ff8b9d8
+
+	measure 'Rolling Value' = SUM ( fact_rolling[value] )
+		formatString: 0.00
+		lineageTag: beec95be-e210-4fd3-905f-d0f561575431
+
+	measure 'Rolling Correlation' = SUM ( fact_rolling[value] )
+		formatString: 0.00
+		lineageTag: f39c331c-f49f-48ab-9b90-485928f0fe40
+
+	measure 'Rolling Volatility' = SUM ( fact_rolling[value] )
+		formatString: 0%;-0%;0%
+		lineageTag: fa8586ae-0c0f-4d46-abf0-d9f6988549de
+
+	column Kolom1
+		dataType: string
+		isHidden
+		lineageTag: ed0598d5-e1b1-4b6f-b276-bd33e6eb8cc2
+		summarizeBy: none
+		sourceColumn: Kolom1
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+				  Bron = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Kolom1 = _t])
+				in
+				  Bron
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,28 @@
+relationship c1b8d996-de71-e2b0-d419-227384fbc9d6
+	fromColumn: fact_returns.date
+	toColumn: dim_date.date
+
+relationship 6dcb171a-369e-f642-a9e6-596dfdd4e5a3
+	fromColumn: fact_returns.series
+	toColumn: dim_series.series
+
+relationship c27a9208-1655-bbce-1500-aea701e4ad1e
+	fromColumn: fact_performance.series
+	toColumn: dim_series.series
+
+relationship 597b8208-2b1b-6c1f-e390-caf6f3097375
+	fromColumn: dim_holding.pie
+	toColumn: dim_pie.pie
+
+relationship f25f0511-c282-5f47-b9bc-cb8ae84d5e45
+	fromColumn: holding_currency.ticker
+	toColumn: dim_holding.ticker
+
+relationship AutoDetected_bb653564-08b1-4ee8-b14f-48d2d24342fd
+	fromColumn: fact_risk_contribution.pie
+	toColumn: dim_pie.pie
+
+relationship AutoDetected_7c46f54d-74f5-4511-9ff9-466e095543b0
+	fromColumn: fact_taiwan.ticker
+	toColumn: dim_holding.ticker
+

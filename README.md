@@ -31,8 +31,9 @@ is a backtest of today's selection and contains hindsight.
 - [x] Scenario analysis per macro regime (factor model), Taiwan shock in two variants, real returns
 - [x] Power BI data model (star schema) with measures reconciled against Python
 - [x] Dashboard page 1: composition and exposure
-- [ ] Dashboard page 2: performance versus benchmark
-- [ ] Dashboard page 3: risk and scenarios
+- [x] Dashboard page 2: performance versus benchmark, rebased to any date selection
+- [x] Dashboard page 3: risk contribution, scenarios, Taiwan shock and stress tests
+- [x] Dashboard page 4: VaR/ES by method, Kupiec backtest, rolling correlation and volatility
 
 ## Power BI dashboard
 
@@ -54,7 +55,19 @@ types and avoids decimal-comma issues in a Dutch Power BI installation).
   most UCITS ETFs are domiciled in Ireland, so the economic currency exposure
   is the better view of economic risk. The top-10 table shows 11 rows because
   three positions share the same weight at rank 9.
-  
+- **Rebasing.** Growth and drawdown are recalculated in DAX from the start of
+  any date selection, so a period such as 2022 starts at 1 and is compared fairly.
+
+To open the report, run notebooks `01` to `06`, open
+`powerbi/portfolio_dashboard.pbip`, set the parameter `ExportFolder` to your
+local `output/powerbi` folder and refresh. The data cache is not tracked.
+
+![Composition](docs/dashboard_composition.png)
+![Performance](docs/dashboard_performance.png)
+![Risk 1/2](docs/dashboard_risk_1.png)
+![Risk 2/2](docs/dashboard_risk_2.png)
+![Risk models](docs/dashboard_risk_models.png)
+
 ## Key findings (backtest 2019-2026)
 
 These describe how the current selection *would have behaved*; they are not
@@ -120,3 +133,6 @@ Run the notebooks in order: 01 to 06
 - `src/portfolio_analysis/` – reusable functions (workbook, market data, backtest, performance, risk)
 - `tests/` – unit tests of the methodology (no look-ahead, within-pie redistribution, proxy splicing, VaR)
 - `output/` – generated tables and figures (not tracked)
+- `powerbi/` – Power BI project (report and semantic model as text; data cache not tracked)
+- `docs/` – dashboard screenshots
+

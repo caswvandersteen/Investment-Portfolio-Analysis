@@ -1,0 +1,73 @@
+table fact_taiwan
+	lineageTag: 9964dcd6-80b8-4004-9470-aad97abbc8da
+
+	column ticker
+		dataType: string
+		isHidden
+		lineageTag: 3796a60c-f353-44b7-9310-9597850cf68a
+		summarizeBy: none
+		sourceColumn: ticker
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column pie
+		dataType: string
+		isHidden
+		lineageTag: 18d5566f-07f9-4806-8d9d-0c0aac6d5785
+		summarizeBy: none
+		sourceColumn: pie
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column weight_in_portfolio
+		dataType: double
+		lineageTag: 9f810a8c-d109-43be-8465-82e7f4a85a37
+		summarizeBy: sum
+		sourceColumn: weight_in_portfolio
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column variant
+		dataType: string
+		lineageTag: d99ea9b8-fe24-4141-8190-c6e8de1d0d00
+		summarizeBy: none
+		sourceColumn: variant
+
+		annotation SummarizationSetBy = Automatic
+
+	column shock
+		dataType: double
+		lineageTag: c194981c-3a3f-4968-a999-077acd311cb5
+		summarizeBy: sum
+		sourceColumn: shock
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column contribution
+		dataType: double
+		lineageTag: 4428ba2e-154d-48ec-ab82-5ee45e010ce5
+		summarizeBy: sum
+		sourceColumn: contribution
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_taiwan = m
+		mode: import
+		source =
+				let
+				  Bron = Parquet.Document(File.Contents(ExportFolder & "fact_taiwan.parquet"))
+				in
+				  Bron
+
+	annotation PBI_ResultType = Table
+

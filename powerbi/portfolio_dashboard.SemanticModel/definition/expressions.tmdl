@@ -1,0 +1,9 @@
+expression ExportFolder =
+		let
+		    Bron = "C:\Users\caswv\projects\Investment-Portfolio-Analysis\output\powerbi\" meta [IsParameterQuery = true, IsParameterQueryRequired = false, Type = type text]
+		in
+		    Bron
+	lineageTag: f6310e05-bcaa-4e1f-b69a-a204a62c0731
+
+	annotation PBI_ResultType = Text
+

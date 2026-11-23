@@ -1,0 +1,39 @@
+table fact_stress
+	lineageTag: a41023a1-ac6c-4f4d-880d-df307a869fe5
+
+	column series
+		dataType: string
+		lineageTag: fb68d40d-819b-4a87-a075-96aa610aa9d2
+		summarizeBy: none
+		sourceColumn: series
+
+		annotation SummarizationSetBy = Automatic
+
+	column scenario
+		dataType: string
+		lineageTag: 36f7184b-a7f2-4138-b374-9c7261ad8efe
+		summarizeBy: none
+		sourceColumn: scenario
+
+		annotation SummarizationSetBy = Automatic
+
+	column value
+		dataType: double
+		lineageTag: a1506bd7-0e1f-4b72-99e1-e0ab95f514bf
+		summarizeBy: sum
+		sourceColumn: value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_stress = m
+		mode: import
+		source =
+				let
+				  Bron = Parquet.Document(File.Contents(ExportFolder & "fact_stress.parquet"))
+				in
+				  Bron
+
+	annotation PBI_ResultType = Table
+

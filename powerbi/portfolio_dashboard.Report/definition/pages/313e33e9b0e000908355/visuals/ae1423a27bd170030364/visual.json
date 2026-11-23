@@ -1,0 +1,168 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "ae1423a27bd170030364",
+  "position": {
+    "x": 0,
+    "y": 85.714285714285722,
+    "z": 0,
+    "height": 411.42857142857144,
+    "width": 960.00000000000011,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_series"
+                    }
+                  },
+                  "Property": "series"
+                }
+              },
+              "queryRef": "dim_series.series",
+              "nativeQueryRef": "series"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Period Return"
+                }
+              },
+              "queryRef": "_Measures.Period Return",
+              "nativeQueryRef": "Period Return"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Ann Return"
+                }
+              },
+              "queryRef": "_Measures.Ann Return",
+              "nativeQueryRef": "Ann Return"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Ann Return (DAX)"
+                }
+              },
+              "queryRef": "_Measures.Ann Return (DAX)",
+              "nativeQueryRef": "Ann Return (DAX)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Ann Volatility"
+                }
+              },
+              "queryRef": "_Measures.Ann Volatility",
+              "nativeQueryRef": "Ann Volatility"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Ann Volatility (DAX)"
+                }
+              },
+              "queryRef": "_Measures.Ann Volatility (DAX)",
+              "nativeQueryRef": "Ann Volatility (DAX)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Sharpe Ratio"
+                }
+              },
+              "queryRef": "_Measures.Sharpe Ratio",
+              "nativeQueryRef": "Sharpe Ratio"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Max Drawdown"
+                }
+              },
+              "queryRef": "_Measures.Max Drawdown",
+              "nativeQueryRef": "Max Drawdown"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "dim_series"
+                  }
+                },
+                "Property": "series"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

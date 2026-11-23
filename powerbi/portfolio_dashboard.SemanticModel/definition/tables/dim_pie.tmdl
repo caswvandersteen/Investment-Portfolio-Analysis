@@ -1,0 +1,70 @@
+table dim_pie
+	lineageTag: 0c4fe473-4306-4416-b96e-32c68d689633
+
+	column pie
+		dataType: string
+		lineageTag: 58d89554-573d-4200-ab70-da07bdd041dc
+		summarizeBy: none
+		sourceColumn: pie
+		sortByColumn: sort_order
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column target_weight
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 1486d901-924a-493e-95a7-9389d0ab8d3b
+		summarizeBy: sum
+		sourceColumn: target_weight
+
+		annotation SummarizationSetBy = Automatic
+
+	column n_positions
+		dataType: int64
+		formatString: 0
+		lineageTag: 6cc78c9a-0eba-47ac-aa53-cf5f24e4e497
+		summarizeBy: sum
+		sourceColumn: n_positions
+
+		annotation SummarizationSetBy = Automatic
+
+	column block
+		dataType: string
+		lineageTag: 0191ec84-8b77-457b-b6a7-e1a1acb0c74b
+		summarizeBy: none
+		sourceColumn: block
+
+		annotation SummarizationSetBy = Automatic
+
+	column benchmark
+		dataType: string
+		lineageTag: 6ab8f177-4279-4c79-b65e-f80aa56127ab
+		summarizeBy: none
+		sourceColumn: benchmark
+
+		annotation SummarizationSetBy = Automatic
+
+	column sort_order
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 9ed1e33b-6284-4e10-b68c-be119fd96811
+		summarizeBy: sum
+		sourceColumn: sort_order
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_pie = m
+		mode: import
+		source =
+				let
+				  Bron = Parquet.Document(File.Contents(ExportFolder & "dim_pie.parquet"))
+				in
+				  Bron
+
+	annotation PBI_ResultType = Table
+

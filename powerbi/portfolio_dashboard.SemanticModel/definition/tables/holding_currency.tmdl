@@ -1,0 +1,43 @@
+table holding_currency
+	lineageTag: 701ad318-cf06-4b3a-bee9-3d85060ef306
+
+	column ticker
+		dataType: string
+		isHidden
+		lineageTag: df0e313b-c78d-46da-a493-6ce1e345303c
+		summarizeBy: none
+		sourceColumn: ticker
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column currency
+		dataType: string
+		lineageTag: ff4be1e9-779c-48fd-adfd-2e14c572181a
+		summarizeBy: none
+		sourceColumn: currency
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column share
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 2886322b-8a82-40d2-942f-4566e86abc12
+		summarizeBy: sum
+		sourceColumn: share
+
+		annotation SummarizationSetBy = Automatic
+
+	partition holding_currency = m
+		mode: import
+		source =
+				let
+				  Bron = Parquet.Document(File.Contents(ExportFolder & "holding_currency.parquet"))
+				in
+				  Bron
+
+	annotation PBI_ResultType = Table
+

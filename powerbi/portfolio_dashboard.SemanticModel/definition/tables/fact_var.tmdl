@@ -1,0 +1,56 @@
+table fact_var
+	lineageTag: a105457a-c114-48f3-9e51-0fca06a848fa
+
+	column window
+		dataType: string
+		lineageTag: eee2ec57-1e9e-4db1-aa18-34c8e07d86cc
+		summarizeBy: none
+		sourceColumn: window
+
+		annotation SummarizationSetBy = Automatic
+
+	column confidence
+		dataType: double
+		formatString: 0%;-0%;0%
+		lineageTag: bbbe150d-69c6-408d-923e-a3c9a45ec6e9
+		summarizeBy: none
+		sourceColumn: confidence
+
+		annotation SummarizationSetBy = User
+
+	column method
+		dataType: string
+		lineageTag: 5247fddd-e92b-47a9-8f55-acf66f11976e
+		summarizeBy: none
+		sourceColumn: method
+
+		annotation SummarizationSetBy = Automatic
+
+	column measure
+		dataType: string
+		lineageTag: cd063688-f589-413f-8154-1483bab03bdc
+		summarizeBy: none
+		sourceColumn: measure
+
+		annotation SummarizationSetBy = Automatic
+
+	column value
+		dataType: double
+		lineageTag: 422ea346-72fe-4885-b226-5d134b8cbd54
+		summarizeBy: sum
+		sourceColumn: value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_var = m
+		mode: import
+		source =
+				let
+				  Bron = Parquet.Document(File.Contents(ExportFolder & "fact_var.parquet"))
+				in
+				  Bron
+
+	annotation PBI_ResultType = Table
+

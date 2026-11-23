@@ -1,0 +1,71 @@
+table fact_var_backtest
+	lineageTag: 4f8c5071-fec7-440e-991a-ffc6d423b2dc
+
+	column model
+		dataType: string
+		lineageTag: ab5a4478-7f9d-4993-a6aa-5021b8a2d0c9
+		summarizeBy: none
+		sourceColumn: model
+
+		annotation SummarizationSetBy = Automatic
+
+	column days
+		dataType: double
+		formatString: 0
+		lineageTag: 58dd864c-7622-4add-a4ab-cf20f1e68a51
+		summarizeBy: none
+		sourceColumn: days
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	column exceedances
+		dataType: double
+		formatString: 0.00
+		lineageTag: eb832974-e47d-4f08-865d-98b135087b45
+		summarizeBy: none
+		sourceColumn: exceedances
+
+		annotation SummarizationSetBy = User
+
+	column rate
+		dataType: double
+		lineageTag: b572573b-3fcd-4ae6-9fd5-80fca752f8cb
+		summarizeBy: none
+		sourceColumn: rate
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column expected
+		dataType: double
+		lineageTag: e9f7bbfa-7eae-4860-96be-aaf2e0621a04
+		summarizeBy: none
+		sourceColumn: expected
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column kupiec_LR
+		dataType: double
+		lineageTag: 00634d99-20fd-4c55-9f71-c3bafda929ff
+		summarizeBy: none
+		sourceColumn: kupiec_LR
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_var_backtest = m
+		mode: import
+		source =
+				let
+				  Bron = Parquet.Document(File.Contents(ExportFolder & "fact_var_backtest.parquet"))
+				in
+				  Bron
+
+	annotation PBI_ResultType = Table
+
