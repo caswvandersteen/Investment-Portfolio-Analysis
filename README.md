@@ -58,9 +58,13 @@ types and avoids decimal-comma issues in a Dutch Power BI installation).
 - **Rebasing.** Growth and drawdown are recalculated in DAX from the start of
   any date selection, so a period such as 2022 starts at 1 and is compared fairly.
 
-To open the report, run notebooks `01` to `06`, open
-`powerbi/portfolio_dashboard.pbip`, set the parameter `ExportFolder` to your
-local `output/powerbi` folder and refresh. The data cache is not tracked.
+**View the dashboard:** [all pages as PDF](docs/dashboard.pdf), or the
+screenshots below.
+
+The report reads the Parquet export of notebook `06`. Because the source
+workbook is not tracked, the report can only be refreshed locally; the model,
+relationships and measures can be read as text in
+`powerbi/portfolio_dashboard.SemanticModel/definition/`.
 
 ![Composition](docs/dashboard_composition.png)
 ![Performance](docs/dashboard_performance.png)
