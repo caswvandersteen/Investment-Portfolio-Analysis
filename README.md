@@ -34,6 +34,8 @@ is a backtest of today's selection and contains hindsight.
 - [x] Dashboard page 2: performance versus benchmark, rebased to any date selection
 - [x] Dashboard page 3: risk contribution, scenarios, Taiwan shock and stress tests
 - [x] Dashboard page 4: VaR/ES by method, Kupiec backtest, rolling correlation and volatility
+- [ ] Live measurement from 31 October 2026, monthly (rules fixed in advance:
+      [docs/measurement_rules.md](docs/measurement_rules.md))
 
 ## Power BI dashboard
 
