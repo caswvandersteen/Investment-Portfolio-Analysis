@@ -18,8 +18,18 @@ rules in section 8.
 
 ## 2. Data and valuation
 
-- **Positions and cash flows** come from the broker export (transactions:
-  buys, sells, deposits, withdrawals, dividends, fees and taxes).
+- **Broker:** Trading 212. The full account history is not used: it contains
+  the restructuring from about 145 to 55 positions before inception.
+- **Opening positions:** the number of shares per position on 31 October 2026.
+  They are derived once from a snapshot of the current quantities, minus the
+  net purchases between 1 November 2026 and the snapshot date taken from the
+  broker export. The snapshot is stored with its date and is not changed
+  afterwards.
+- **Transactions from 1 November 2026** come from the Trading 212 export:
+  buys, sells, deposits, withdrawals, dividends, interest on cash, fees and
+  taxes.
+- **Cash** in the account is part of the portfolio. Uninvested deposits count
+  as cash at 0% return until invested; interest on cash counts as income.
 - **Prices:** closing price in the listing currency on the last trading day on
   or before the valuation date (Yahoo Finance, with the same jump and spike
   checks as notebook `02`).
@@ -28,10 +38,12 @@ rules in section 8.
   a known source of noise.
 - **Valuation:** reconstructed positions × closing price × ECB rate, on every
   trading day.
-- **Reconciliation:** on every measurement date the reconstructed portfolio
-  value is compared with the value the broker reports. A difference above
-  **0.5%** is investigated before results are reported, and the cause is
-  logged.
+- **Reconciliation:** on every measurement date the total value and the value
+  of each of the six pies, as shown in the Trading 212 app, are recorded. The
+  reconstructed values are compared with them. A difference above **0.5%** in
+  total or **1%** for a pie is investigated before results are reported, and
+  the cause is logged. The check per pie catches errors that cancel out in the
+  total.
 
 ## 3. Return measures
 
@@ -78,8 +90,9 @@ tax and costs. This works slightly against the portfolio and is not corrected.
 
 ## 6. Data and privacy
 
-- Broker exports and anything showing amounts (values, deposits, quantities)
-  stay in `data/raw/` and `output/` and are never committed.
+- Broker exports, the quantity snapshot, the recorded pie values and anything
+  else showing amounts (values, deposits, quantities) stay in `data/raw/live/`
+  and `output/` and are never committed.
 - Only returns, weights and the price list are published.
 
 ## 7. Backtest and live record
